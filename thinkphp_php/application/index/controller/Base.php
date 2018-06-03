@@ -13,6 +13,12 @@
 			}
 			$user=$this->getLoginUser();
 			$this->assign('user',$user);
+			//分类
+			$category=model("Category")->where("status",1)->select();
+        	$this->assign("category",$category);
+        	//文章
+        	$art=model("Article")->where("status",1)->select();
+        	$this->assign("art",$art);
 		}
 		public function isLogin()
 		{

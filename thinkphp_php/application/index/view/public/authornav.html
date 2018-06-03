@@ -1,0 +1,49 @@
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+               <ul class="nav" id="main-menu">
+                    <li class="text-center">
+                       
+                        {if condition='$user.logo'}
+                        <div class="user_img">
+                            <img src="__UPLOADS__/logo/{$user.logo}" class="user-image img-responsive" style=""/>
+                        </div>
+                        {else/}
+                        <img src="__STATIC__/img/find_user.png" class="user-image img-responsive"/>
+                        {/if}
+                    </li>
+                    <li>
+                        <a href="{:url('author/index')}"><i class="fa fa-dashboard fa-3x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我的首页</a>
+                    </li>
+                    <li>
+                        <a href="#" ><i class="fa fa-sitemap fa-3x"></i>&nbsp;&nbsp;&nbsp;&nbsp; 文章管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                               <a href="{:url('author/articleup')}">发布文章</a>
+                             </li>
+                            <li>
+                                <a  href="{:url('author/article')}">文章列表</a>
+                            </li>
+                        </ul>
+                    </li> 
+                    
+                    <li>
+                        <a href="#" ><i class="fa fa-qrcode fa-3x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 类别管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                               <a href="{:url('author/categoryup')}">设置类别</a>
+                             </li>
+                            <li>
+                                <a  href="{:url('author/category')}">类别列表</a>
+                            </li>
+                        </ul>
+                    </li>  
+                    <li>
+                        <a   href="{:url('author/editor')}"><i class="fa fa-user fa-3x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;修改个人信息</a>
+                    </li>       
+                     
+                    <li>
+                        <a  href="{:url('index/index')}"><i class="fa fa-square-o fa-3x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回博客</a>
+                    </li>   
+                </ul>   
+            </div> 
+        </nav>

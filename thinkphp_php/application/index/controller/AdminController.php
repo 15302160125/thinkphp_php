@@ -3,7 +3,7 @@ namespace app\index\controller;
 use think\Controller;
 use think\Request;
 use think\File;
-class AuthorController extends Base
+class AdminController extends Base
 {
     public function index()
     {
