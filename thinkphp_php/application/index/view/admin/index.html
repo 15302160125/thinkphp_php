@@ -4,13 +4,13 @@
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>用户博客管理</title>
-	{include file="public/authorhead" /}
+	{include file="public/adminhead" /}
 </head>
 <body>
     <div id="wrapper">
-        {include file="public/authormenu" /}
+        {include file="public/adminmenu" /}
            <!-- /. NAV TOP  -->
-           {include file="public/authornav" /}
+           {include file="public/adminnav" /}
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
             <div id="page-inner">
@@ -29,10 +29,21 @@
                             </span>
                           
                             <div class="text-box" >
-                                <p class="main-text">{$count} 篇文章</p>
+                                <p class="main-text">共 {$count} 篇文章</p>
                                 <p class="text-muted">Articles</p>
                             </div>
-                  
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">   
+                        <div class="panel panel-back noti-box">
+                            <span class="icon-box bg-color-red set-icon">
+                                <i class="fa fa-user"></i>
+                            </span>
+                          
+                            <div class="text-box" >
+                                <p class="main-text">{$author} 位作者</p>
+                                <p class="text-muted">Author</p>
+                            </div>
                         </div>
     		      </div>
                 </div>
@@ -47,7 +58,7 @@
      <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-   {include file="public/authorfooter" /}
+   {include file="public/adminfooter" /}
    
 </body>
 </html>

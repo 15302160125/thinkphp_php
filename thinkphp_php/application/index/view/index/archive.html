@@ -7,63 +7,30 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-	<title>首页</title>
+	<title>博客</title>
+
     {include file="public/indexhead"}
 </head>
 
- <body class="index-page">
-
-   {include file="public/indexnav" /}
-
-	<div id="carousel-example-generic" class="carousel slide hidden-xs" data-ride="carousel" data-interval="4000">
-		<!-- Wrapper for slides -->
-		<div class="carousel-inner">
-			<div class="item active">
-				<img src="__STATIC__/images/banner1.jpg" alt="...">
-				<!-- Static Header -->
-				<div class="container">
-				<div class="header-text hidden-xs">
-					<div class="col-md-12 text-center">
-						<h1>我的个人博客</h1>
-						<hr>
-						<p>使用Bootstrap+ThinkPHP5.0制作</p>
-						<a href="" class="btn btn-primary btn-xl page-scroll">查看更多</a>
-					</div>
-				</div><!-- /header-text -->
-				</div>
-			</div>
-			<div class="item">
-				<img src="__STATIC__/images/banner2.jpg" alt="...">
-				<!-- Static Header -->
-				<div class="header-text hidden-xs">
-					<div class="col-md-12 text-center">
-						<h1>我的个人博客</h1>
-						<hr>
-						<p>使用Bootstrap+ThinkPHP5.0制作</p>
-						<a href="" class="btn btn-primary btn-xl page-scroll">查看更多</a>
-					</div>
-				</div><!-- /header-text -->
-			</div>
-			
+<body class="sub-page">	
+	 {include file="public/indexnav" /}
+	<div  class="site-gradients">
+		<div class="site-gradients-media">
+			<figure>
+				<img src="Another%20Yosemite%20short%20movie%20project%20%E2%80%93%20Modern_files/PcLGXNjMTdiFVKTrElCl__DSC2245.jpg" alt="PcLGXNjMTdiFVKTrElCl__DSC2245" srcset="https://themedemos.webmandesign.eu/modern/wp-content/uploads/sites/8/2014/11/PcLGXNjMTdiFVKTrElCl__DSC2245.jpg 1920w, https://themedemos.webmandesign.eu/modern/wp-content/uploads/sites/8/2014/11/PcLGXNjMTdiFVKTrElCl__DSC2245-420x280.jpg 420w, https://themedemos.webmandesign.eu/modern/wp-content/uploads/sites/8/2014/11/PcLGXNjMTdiFVKTrElCl__DSC2245-744x497.jpg 744w, https://themedemos.webmandesign.eu/modern/wp-content/uploads/sites/8/2014/11/PcLGXNjMTdiFVKTrElCl__DSC2245-1200x801.jpg 1200w" sizes="(max-width: 1617px) 100vw, 1617px" height="1080" width="1617">
+			</figure>
 		</div>
-		<!-- Controls -->
-		<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-left"></span>
-		</a>
-		<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-			<span class="glyphicon glyphicon-chevron-right"></span>
-		</a>
-	</div> <!-- Carousel -->
+	</div>
+	
 	
 	<header class="container">
-		<div class="hr"></div>
 		<div class="site-branding">
 			<h1 class="site-title">
-				<a href="#">
+				<a href="index.html">
 					<span>{$user.username|default='欢迎您'}</span>
 				</a>
 			</h1>
-			<h2 class="site-description">欢迎您！</h2>
+			<h2 class="site-description">Welcome to Us !</h2>
 		</div>
 		<div class="social-links">
 			<ul class="list-inline">
@@ -79,7 +46,7 @@
 	<!-- /////////////////////////////////////////Content -->
 	<div id="page-content">
 	
-		<!-- ////////////Content Box 01 -->
+		<div id="page-content">
 		<section class="box-content box-1">
 			<div class="container">
 				<div class="row">
@@ -104,14 +71,14 @@
 							
 						</div>
 					</div>
-					{/volist}
+					{/volist}	
 				</div>
 			</div>
 		</section>
+		</div>
 	</div>
-	
+
 	{include file="public/indexfooter" /}
-  
 
 </body>
 </html>

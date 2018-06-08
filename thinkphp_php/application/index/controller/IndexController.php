@@ -2,22 +2,40 @@
 namespace app\index\controller;
 use think\Controller;
 use think\Request;
-class IndexController extends Controller
+class IndexController extends Index
 {
     public function index()
     {
-    	if(session('my_user',"","my"))
-        {
-            $my_user=session("my_user","","my");
-            $user=model("author")->where('id',$my_user['id'])->find();
-            $this->assign('user',$user);
-        }    
-    	$category=model("Category")->where("status",1)->select();
-        $this->assign("category",$category);
-        	//文章
-        $art=model("Article")->where("status",1)->select();
-        $this->assign("art",$art);
         return view("index/index");
     }
-    
+    public function contact()
+    {
+        return view("index/contact");
+    }
+    public function single()
+    {
+        return view("index/single");
+    }
+    public function archive()
+    {
+        return view("index/archive");
+    }
+    public function main()
+    {
+        if(!request()->post())
+        {
+            $this->error("请求错误!","index/index");
+        }
+        $postData=Request::instance()->post();
+        //文章
+        $art=model("Article")->where("status",1)->where('id',$postData['id'])->select();
+
+        if($postData['status']!=1)
+        {
+            $this->error('不存在此文章！');
+        }
+        
+        $this->assign("art",$art);
+        return view("index/main");
+    }
 }

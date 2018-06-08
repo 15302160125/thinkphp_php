@@ -3,15 +3,37 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>用户注册</title>
-   {include file="public/authorhead" /}
+    <title>管理员注册</title>
+   {include file="public/adminhead" /}
+    <style>
+        body
+        {
+            background-image:url("__STATIC__/images/banner1.jpg");
+        }
+        #bg
+        {
+            width:100%;
+            height:100%;
+            position:absolute;
+            filter: blur(2px);
+        }
+        .container
+        {
+            padding-top:5%;
+        }
+        .panel
+        {
+            opacity:0.8;
+        }
+    </style>
 </head>
-<body>
+<body>  
+    <img src="__STATIC__/images/banner1.jpg" id='bg' alt="">
     <div class="container">
         <div class="row text-center  ">
             <div class="col-md-12">
                 <br /><br />
-                <h2>用户注册</h2>
+                <h2>管理员注册</h2>
                  <br />
             </div>
         </div>
@@ -23,7 +45,7 @@
                         <strong>  请填写以下信息 </strong>  
                             </div>
                             <div class="panel-body">
-                                <form role="form" class="formform"  action="{:url('login/registeration')}" method="post" onsubmit="return checkRegiste()">
+                                <form role="form" class="loginform"  action="{:url('login/adminregisteration')}" method="post" onsubmit="return checkRegiste()">
                                     <br/>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-circle-o-notch"  ></i></span>
@@ -32,14 +54,6 @@
                                      <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-tag"  ></i></span>
                                             <input type="text" name="username" class="form-control" placeholder="Your Username" required="required" />
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-phone"  ></i></span>
-                                            <input type="text" name="tel" class="form-control" placeholder="Enter Your Tel" required="required" />
-                                        </div>
-                                         <div class="form-group input-group">
-                                            <span class="input-group-addon">@</span>
-                                            <input type="email" name="email" class="form-control" placeholder="Your Email" required="required" />
                                         </div>
                                       <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
@@ -50,10 +64,12 @@
                                             <input type="password" id="retypepassword" name="retypepassword" class="form-control" placeholder="Retype Password" required="required" />
                                         </div>
                                      
-                                     <input type="submit" class="btn btn-success" value="点击注册"></input>
+                                     <input type="submit" id="registebtn" class="btn btn-success" value="点击注册"></input>
                                     <hr />
-                                    已经有账号了 ?  <a href="{:url('author/login')}" >点击登录</a>
+                                    <div id="registe">
+                                    已经有账号了 ?  <a href="{:url('login/adminlogin')}" >点击登录</a>
                                     </form>
+                                    </div>
                             </div>
                            
                         </div>
@@ -66,6 +82,18 @@
 
      <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-   {include file="public/authorfooter" /}
+   {include file="public/adminfooter" /}
+<script>
+       function checkRegiste()
+        {
+            var password=document.getElementById("password");
+            var retypepassword=document.getElementById("retypepassword");
+            if(password.value!=retypepassword.value)
+            {
+                alert("两次输入密码不一样！请重新输入！");
+                return false;
+            }
+        }
+   </script>
 </body>
 </html>

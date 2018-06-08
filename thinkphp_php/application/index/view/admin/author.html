@@ -17,7 +17,7 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>文章管理</h2>   
+                     <h2>作者管理</h2>   
                     </div>
                 </div>
                  <!-- /. ROW  -->
@@ -36,7 +36,10 @@
                                     <thead>
                                         <tr>
                                             <th>序号</th>
-                                            <th>文章标题</th>
+                                            <th>作者昵称</th>
+                                            <th>真实姓名</th>
+                                            <th>联系电话</th>
+                                            <th>邮箱</th>
                                             <th>状态</th>
                                             <th>创建时间</th>
                                             <th>更新时间</th>
@@ -44,23 +47,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {volist name="article" id="vo" key="key"}
+                                        {volist name="author" id="vo" key="key"}
                                         <tr class="odd gradeX">
                                             <td class="titlecenter">{$key}</td>  
-                                            <td class="titlecenter">
-                                                <form action="{:url('index/main')}" method="post">
-                                                    <input type="hidden" name="id" value="{$vo.id}">
-                                                    <input type="hidden" name="status" value="{$vo.status}">
-                                                    <input type="submit" class="articletitle" value="{$vo.title}">
-                                                </form>
-                                            </td>  
+                                            <td class="titlecenter">{$vo.username}</td>  
+                                            <td class="titlecenter">{$vo.realname}</td>  
+                                            <td class="titlecenter">{$vo.tel}</td>  
+                                            <td class="titlecenter">{$vo.email}</td>  
                                             <td class="titlecenter">{eq name="$vo.status" value="1"}<span class="btn btn-success">正常</span>{else/}<span class="btn btn-danger">禁止</span>{/eq}</td>
                                             <td class="titlecenter">{$vo.create_time}</td> 
                                             <td class="titlecenter">{$vo.update_time}</td> 
                                             <td class="titlecenter">
                                                 <div class="titleform">
-                                                    <a class="btn btn-danger" href="{:url('admin/articledelete?id='.$vo.id)}">删除</a>
-                                                    <form action="{:url('admin/articleupdate')}" method="post">
+                                                    <a class="btn btn-danger" href="{:url('admin/authordelete?id='.$vo.id)}">删除</a>
+                                                    <form action="{:url('admin/authorupdate')}" method="post">
                                                         <input type="hidden" name="id" value="{$vo.id}">
                                                         <input type="submit" class="btn updatebtn btn-primary" value="更新">
                                                     </form>

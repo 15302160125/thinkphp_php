@@ -1,0 +1,55 @@
+<footer>
+		<div class="wrap-footer">
+			<div class="container">
+				<div class="row"> 
+					<div class="col-footer col-md-3">
+						<h2 class="footer-title">关于我们</h2>
+						<div class="textwidget">中山职业技术学院信息工程学院16软件一班</div>
+						<div class="textwidget"><a href="{:url('login/adminlogin')}">管理员登陆</a></div>
+					</div> 
+					<div class="col-footer col-md-3 widget_recent_entries">
+						<h2 class="footer-title">最近的帖子</h2>
+						<ul>
+							{volist name="art" id="vo"}
+							<li><a href="">
+								<form action="{:url('index/main')}" method="post">
+									<input type="hidden" id="status" name="status" value="{$vo.status}">
+									<input type="hidden" id="id" name="id" value="{$vo.id}">
+									<input type="submit" id="maintitle" value="{$vo.title}">
+								</form> 
+							</a></li>
+							{/volist}
+						</ul>
+					</div>
+					<div class="col-footer col-md-3">
+						<h2 class="footer-title">给我们留言</h2>
+						如果您对我们的网站有什么意见或建议，请给我们留言！
+						<form action="#" method="post">
+							<input type="text" name="your-name" value="" size="40" placeholder="Your Email" />
+							<input type="submit" value="提交" class="btn btn-skin" />
+						</form>
+					</div>
+					<div class="col-footer col-md-3">
+						<h2 class="footer-title">标签</h2>
+						<div class="footer-tags">
+							{volist name="category" id="vo"}
+							<a href="#">{$vo.categoryname}</a>
+							{/volist}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+		<!-- jQuery -->
+	<script type="text/javascript" src="__STATIC__/js/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/bootstrap.min.js"></script>
+	
+	<!-- Custom Theme JavaScript -->
+	<script src="__STATIC__/js/agency.js"></script>
+
+	<!-- Plugin JavaScript -->
+	<script src="__STATIC__/js/jquery.easing.min.js"></script>
+	<script src="__STATIC__/js/classie.js"></script>
+	<script src="__STATIC__/js/cbpAnimatedHeader.js"></script>
+	

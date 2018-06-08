@@ -3,74 +3,74 @@ namespace app\index\controller;
 use think\Controller;
 use think\Request;
 use think\File;
-class AdminController extends Base
+class AdminController extends AdminBase
 {
     public function index()
     {
-        if(session('my_user',"","my"))
+        if(session('my_admin',"","admin"))
         {
-            $my_user=session("my_user","","my");
-            $author=model("article")->where('author_id',$my_user['id'])->select();
+            $my_user=session('my_admin',"","admin");
+            $author=model("author")->count();
             $author=$this->assign("author",$author);
-            $count=model("article")->where('author_id',$my_user['id'])->count();
+            $count=model("article")->count();
             $count=$this->assign("count",$count);
-            return view('author/index');
+            return view('admin/index');
         }       
     }
-    public function article()
+    //作者
+    public function author()
     {
-        $article=model("Article")->select();
-        $art=$this->assign("art",$article);
-        return view("author/article");
+        $author=model("author")->select();
+        $this->assign("author",$author);
+        return view("admin/author");
     }
-    public function articleup()
+    public function authorupdate()
     {
-        $category=model("category")->select();
-        $categoryData=$this->assign("category",$category);
-        $my_user=session("my_user","","my");
-        $author=model("author")->where('id',$my_user['id'])->select();
-        $author=$this->assign("author",$author);
-        return view("author/articleup");
+        $postData=Request::instance()->param();
+        $author=model("author")->where('id',$postData['id'])->find();
+        $this->assign("author",$author);
+        return view("admin/authorupdate");
     }
-    public function setarticle()
+    public function newauthor()
     {
-        if(!request()->post())
+       if(!request()->post())
         {
             $this->error("请求错误!");
         }
         $postData=Request::instance()->post();
-
-        $file = request()->file('image');
-        if($file){
-            $info = $file->move(ROOT_PATH . DS . 'uploads');
-            if($info){
-            $savename=$info->getSaveName();
-            $logo=str_replace('\\','/',$savename);
-            }else{
-                echo $file->getError();
-            }
-        }
-        $article=model("Article");
-        $article->title=$postData['title'];
-        $article->logo=$logo;
-        $article->author_id=$postData['author_id'];
-        $article->category_id=$postData['category_id'];
-        $article->description=$postData['description'];
-        $article->content=$postData['content'];
-        $article->save();
-        if($article->id)
+        //dump($postData);
+        $author=model("author")->where('id',$postData['id'])->find();
+        $author->status=$postData['status'];
+        $author->save();
+        if($author->id)
         {
-            $this->success("文章发布成功！","author/article");
+            $this->success("作者状态成功！","admin/author");
         }
-         
+    }
+    public function authordelete()
+    {
+        $postData=Request::instance()->param();
+        $author=model("author")->where('id',$postData['id'])->find();
+        $author->status=2;
+        $author->save();
+        if($author->id)
+        {
+            $this->success("删除成功",url('admin/author'));
+        }
+    }
+    //文章
+    public function article()
+    {
+        $article=model("article")->select();
+        $this->assign("article",$article);
+        return view("admin/article");
     }
     public function articleupdate()
     {
-        $my_user=session("my_user","","my");
-        $postData=Request::instance()->post();
-        $article=model("Article")->where('id',$postData['id'])->select();
+        $postData=Request::instance()->param();
+        $article=model("article")->where('id',$postData['id'])->find();
         $this->assign("article",$article);
-        return view("author/articleupdate");
+        return view("admin/articleupdate");
     }
     public function newarticle()
     {
@@ -79,77 +79,39 @@ class AdminController extends Base
             $this->error("请求错误!");
         }
         $postData=Request::instance()->post();
-
-        $file = request()->file('image');
-        if($file){
-            $info = $file->move(ROOT_PATH . DS . 'uploads');
-            if($info){
-            $savename=$info->getSaveName();
-            $logo=str_replace('\\','/',$savename);
-            }else{
-                echo $file->getError();
-            }
-        }
-        $article=model("Article")->where('id',$postData['id'])->find();
-        $article->title=$postData['title'];
-        if($file!="")
-        {
-            $article->logo=$logo;
-        }
+        //dump($postData);
+        $article=model("article")->where('id',$postData['id'])->find();
         $article->status=$postData['status'];
-        $article->author_id=$postData['author_id'];
-        $article->category_id=$postData['category_id'];
-        $article->description=$postData['description'];
-        $article->content=$postData['content'];
         $article->save();
         if($article->id)
         {
-            $this->success("文章更新成功！","author/article");
+            $this->success("文章状态成功！","admin/article");
         }
     }
     public function articledelete()
     {
         $postData=Request::instance()->param();
-        $article=model("Article")->where('id',$postData['id'])->find();
+        $article=model("article")->where('id',$postData['id'])->find();
         $article->status=2;
         $article->save();
         if($article->id)
         {
-            $this->success("删除成功",url('author/article'));
+            $this->success("删除成功",url('admin/article'));
         }
     }
+    //分类
     public function category()
     {
-        $category=model("Category")->select();
+        $category=model("category")->select();
         $this->assign("category",$category);
-        return view("author/category");
-    }
-    public function categoryup()
-    {
-        return view("author/categoryup");
-    }
-    public function setcategory()
-    {
-        if(!request()->post())
-        {
-            $this->error("请求错误!");
-        }
-        $postData=Request::instance()->post();
-        $category=model("Category");
-        $category->categoryname=$postData['categoryname'];
-        $category->save();
-        if($category->id)
-        {
-            $this->success("类别设置成功！","author/category");
-        }
-        dump($postData);
+        return view("admin/category");
     }
     public function categoryupdate()
     {
         $postData=Request::instance()->param();
         $category=model("category")->where('id',$postData['id'])->find();
         $this->assign("category",$category);
-        return view("author/categoryupdate");
+        return view("admin/categoryupdate");
     }
     public function newcategory()
     {
@@ -160,12 +122,11 @@ class AdminController extends Base
         $postData=Request::instance()->post();
         //dump($postData);
         $category=model("category")->where('id',$postData['id'])->find();
-        $category->categoryname=$postData['categoryname'];
         $category->status=$postData['status'];
         $category->save();
         if($category->id)
         {
-            $this->success("分类更新成功！","author/category");
+            $this->success("类别状态成功！","admin/category");
         }
     }
     public function categorydelete()
@@ -176,21 +137,21 @@ class AdminController extends Base
         $category->save();
         if($category->id)
         {
-            $this->success("删除成功",url('author/category'));
+            $this->success("删除成功",url('admin/category'));
         }
     }
-
+    //修改信息
     public function editor()
     {
-        $my_user=session("my_user","","my");
-        $author=model("author")->where('id',$my_user['id'])->select();
-        $editor=$this->assign("editor",$author);
-        return view("author/editor");
+        $my_admin=session("my_admin","","admin");
+        $admin=model("admin")->where('id',$my_admin['id'])->select();
+        $editor=$this->assign("editor",$admin);
+        return view("admin/editor");
     }
     public function editorup()
     {
         $postData=Request::instance()->post();
-        $author=model("Author")->where('id',$postData['id'])->find();
+        $admin=model("admin")->where('id',$postData['id'])->find();
 
         $file = request()->file('image');
         if($file){
@@ -203,21 +164,19 @@ class AdminController extends Base
             }
         }
 
-        $author->username=$postData['username'];
-        $author->tel=$postData['tel'];
+        $admin->username=$postData['username'];
         if($file!="")
         {
-            $author->logo=$logo;
+            $admin->logo=$logo;
         }
-        $author->email=$postData['email'];
         $code=rand(1000,9999);
-        $author->code=$code;
-        $author->password=md5($postData['password']);
-        $author->save();
-        if($author->id)
+        $admin->code=$code;
+        $admin->password=md5($postData['password'].$code);
+        $admin->save();
+        if($admin->id)
         {
-            session(null,'my');
-            $this->success("个人信息修改成功！请重新登录","login/login");
+            session(null,'admin');
+            $this->success("个人信息修改成功！请重新登录","login/adminlogin");
         }
         dump($postData);
     }

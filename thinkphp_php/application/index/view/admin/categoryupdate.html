@@ -4,36 +4,38 @@
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>文章列表</title>
-   {include file="public/authorhead" /}
+   {include file="public/adminhead" /}
  
 </head>
 <body>
     <div id="wrapper">
-        {include file="public/authormenu" /} 
+        {include file="public/adminmenu" /} 
            <!-- /. NAV TOP  -->
-        {include file="public/authornav" /}
+        {include file="public/adminnav" /}
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>文章管理——设置类别</h2>                         
+                        <h2>类别管理</h2>                         
                     </div>
                 </div>
                  <!-- /. ROW  -->
                 <hr />
             <div class="row">
-                <div class="col-md-7 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                 <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
                     <div class="panel panel-default">
-                        <form role="form" class="formform"  action="{:url('author/newcategory')}" method="post" >
+                        <form role="form" class="formform"  action="{:url('admin/newcategory')}" method="post" >
+                          <input type="hidden" name="id" id="id" value="{$category.id}">
                             <table class="categorytable table table-hover">
                                 <tr>
-                                    <input type="hidden" name="id" class="form-control" value="{$category.id}"/>
-                                    <th class="info col-md-2 titlecenter">类别名:</th>
-                                    <td class="col-md-10"><input type="text" name="categoryname" class="form-control" placeholder="Your categoryname" required="required" value="{$category.categoryname}"/></td>
+                                    <th class="info col-md-2 titlecenter">类别:</th>
+                                    <td class="col-md-10 status">
+                                    &nbsp;&nbsp;{$category.categoryname}
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th class="info col-md-2 titlecenter">状态:</th>
+                                    <th class="info col-md-2 titlecenter">类别状态:</th>
                                     <td class="col-md-10 status">
                                       <span class="btn btn-sm" id="success">正常</span>
                                       <span class="btn btn-sm" id="danger">禁用</span>
@@ -54,7 +56,7 @@
      <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-   {include file="public/authorfooter" /}
+   {include file="public/adminfooter" /}
    <script>
       var status=document.getElementById("status").value;
       if(status==1)

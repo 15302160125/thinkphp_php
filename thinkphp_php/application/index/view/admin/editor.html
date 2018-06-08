@@ -4,13 +4,13 @@
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>修改个人信息</title>
-   {include file="public/authorhead" /}
+   {include file="public/adminhead" /}
 </head>
 <body>
     <div id="wrapper">
-        {include file="public/authormenu" /}
+        {include file="public/adminmenu" /}
            <!-- /. NAV TOP  -->
-        {include file="public/authornav" /}
+        {include file="public/adminnav" /}
   
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
@@ -23,9 +23,9 @@
                  <!-- /. ROW  -->
                 <hr />
             <div class="row">
-                <div class="col-md-7 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                 <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
                     <div class="panel panel-default">
-                        <form role="form" class="formform"  action="{:url('author/editorup')}" method="post" enctype="multipart/form-data"  >
+                        <form role="form" class="formform"  action="{:url('admin/editorup')}" method="post" enctype="multipart/form-data"   onsubmit="return checkRegiste()">
                             <table class="editortable table table-hover table-bordered">
                                 {volist name="editor" id="vo"}
                                 <tr>
@@ -36,7 +36,13 @@
                                 <tr>
                                     <th class="info titlecenter">密码:</th>
                                     <td>
-                                      <input type="password" name="password" class="form-control" placeholder="密码必填" required="required" value=""/>
+                                      <input type="password" id="password"  name="password" class="form-control" placeholder="密码必填" required="required" value=""/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="info titlecenter">确认密码:</th>
+                                    <td>
+                                      <input type="password" id="retypepassword" name="retypepassword" class="form-control" placeholder="确认密码" required="required" value=""/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -44,16 +50,6 @@
                                     <td class="col-md-10 file">
                                         <input type="file" name="image" required="required"/> <br> 
                                     </td>
-                                </tr>
-                                <tr>
-                                    <th class="info titlecenter">联系电话:</th>
-                                    <td>
-                                       <input type="text" name="tel" class="form-control" placeholder="Your Tel"equired="required" value="{$vo.tel}"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="info titlecenter">邮箱:</th>
-                                    <td><input type="text" name="email" class="form-control" placeholder="Your Email"equired="required" value="{$vo.email}"/></td>
                                 </tr>
                                 {/volist}
                             </table>
@@ -70,12 +66,24 @@
      <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-   {include file="public/authorfooter" /}
+   {include file="public/adminfooter" /}
     <script type="text/javascript" src="__STATIC__/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="__STATIC__/ueditor/ueditor.all.min.js"></script>
     <script type="text/javascript" src="__STATIC__/ueditor/lang/zh-cn/zh-cn.js"></script>
     <script type="text/javascript">
     　　UE.getEditor('content',{initialFrameWidth:'100%',initialFrameHeight:200,});
 　　</script>
+<script>
+       function checkRegiste()
+        {
+            var password=document.getElementById("password");
+            var retypepassword=document.getElementById("retypepassword");
+            if(password.value!=retypepassword.value)
+            {
+                alert("两次输入密码不一样！请重新输入！");
+                return false;
+            }
+        }
+   </script>
 </body>
 </html>

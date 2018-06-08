@@ -31,7 +31,11 @@ class LoginController extends Controller
         {
             $this->error("不存在此用户，请重新登录！");
         }
-        if($author->password==md5($postData['password']))
+        if($author->status!=1)
+        {
+            $this->error("此用户状态异常！");
+        }
+        if($author->password==md5($postData['password'].$author->code))
         {
             session("my_user",$author,"my");
             $this->success("登录成功",url("author/index"));
@@ -60,18 +64,26 @@ class LoginController extends Controller
             $this->error("请求错误!");
         }
         $postData=Request::instance()->post();
+        $aut=model("Author")->where("username",$postData['username'])->select();
         $author=model("Author");
-        $author->realname=$postData['realname'];
-        $author->username=$postData['username'];
-        $author->tel=$postData['tel'];
-        $author->email=$postData['email'];
-        $code=rand(1000,9999);
-        $author->code=$code;
-        $author->password=md5($postData['password']);
-        $author->save();
-        if($author->id)
+        if(!$aut)
         {
-            $this->success("注册成功！","author/login");
+            $author->realname=$postData['realname'];
+            $author->username=$postData['username'];
+            $author->tel=$postData['tel'];
+            $author->email=$postData['email'];
+            $code=rand(1000,9999);
+            $author->code=$code;
+            $author->password=md5($postData['password'].$code);
+            $author->save();
+            if($author->id)
+            {
+                $this->success("注册成功！","author/login");
+            }
+        }
+        else
+        {
+            $this->error("账号已存在！","author/registeration");
         }
     }
     //管理员
@@ -95,25 +107,53 @@ class LoginController extends Controller
         }
         $postData=Request::instance()->post();
         $admin=model("admin")->where('username',$postData['username'])->find();
-        // echo $author->password;
-        // echo "</br>";
-        // echo md5($postData['password']+($author->code));
         if(!$admin)
         {
             $this->error("不存在此用户，请重新登录！");
         }
-        if($admin->password==md5($postData['password']))
+        if($admin->password==md5($postData['password'].($admin->code)))
         {
-            session('my_admin',"","admin");
+            session('my_admin',$admin,"admin");
             $this->success("登录成功",url("admin/index"));
         }else
         {
-            $this->error("密码错误！",url("login/adminlogin"));
+            $this->error("密码错误！",url("admin/adminlogin"));
         }
     }
     public function adminlogout()
     {
-        session(null,"my");
+        session(null,"admin");
         $this->success("注销成功！",url('admin/index'));
+    }
+    public function adminregiste()
+    {
+        return view("admin/registeration");   
+    }
+    public function adminregisteration()
+    {
+        if(!request()->post())
+        {
+            $this->error("请求错误!");
+        }
+        $postData=Request::instance()->post();
+        $aut=model("Admin")->where("username",$postData['username'])->select();
+        $admin=model("Admin");
+        if(!$aut)
+        {
+            $admin->realname=$postData['realname'];
+            $admin->username=$postData['username'];
+            $code=rand(1000,9999);
+            $admin->code=$code;
+            $admin->password=md5($postData['password'].$code);
+            $admin->save();
+            if($admin->id)
+            {
+                $this->success("注册成功！","admin/login");
+            }
+        }
+        else
+        {
+            $this->error("账号已存在！","admin/registeration");
+        }
     }
 }

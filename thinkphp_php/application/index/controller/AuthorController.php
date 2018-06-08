@@ -19,13 +19,16 @@ class AuthorController extends Base
     }
     public function article()
     {
-        $article=model("Article")->select();
+        $my_user=session("my_user","","my");
+        $author=model("article")->where('author_id',$my_user['id'])->select();
+        $author=$this->assign("author",$author);
+        $article=model("Article")->where('author_id',$my_user['id'])->select();
         $art=$this->assign("art",$article);
         return view("author/article");
     }
     public function articleup()
     {
-        $category=model("category")->select();
+        $category=model("category")->where("status",1)->select();
         $categoryData=$this->assign("category",$category);
         $my_user=session("my_user","","my");
         $author=model("author")->where('id',$my_user['id'])->select();
@@ -42,6 +45,8 @@ class AuthorController extends Base
 
         $file = request()->file('image');
         if($file){
+            // $name=iconv('utf-8','gbk',$file->getInfo()['name']);
+            // $info = $file->move(ROOT_PATH . DS . 'uploads',$name);
             $info = $file->move(ROOT_PATH . DS . 'uploads');
             if($info){
             $savename=$info->getSaveName();
@@ -210,9 +215,7 @@ class AuthorController extends Base
             $author->logo=$logo;
         }
         $author->email=$postData['email'];
-        $code=rand(1000,9999);
-        $author->code=$code;
-        $author->password=md5($postData['password']);
+        $author->password=md5($postData['password'].$author->code);
         $author->save();
         if($author->id)
         {

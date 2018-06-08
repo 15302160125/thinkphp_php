@@ -1,0 +1,35 @@
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+               <ul class="nav" id="main-menu">
+                    <li class="text-center">
+                       
+                        {if condition='$user.logo'}
+                        <div class="user_img">
+                            <img src="__UPLOADS__/logo/{$user.logo}" class="user-image img-responsive" style=""/>
+                        </div>
+                        {else/}
+                        <img src="__STATIC__/img/find_user.png" class="user-image img-responsive"/>
+                        {/if}
+                    </li>
+                    <li>
+                        <a href="{:url('admin/index')}"><i class="fa fa-dashboard fa-3x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我的首页</a>
+                    </li>
+                    <li>
+                        <a href="{:url('admin/author')}"><i class="fa fa-sitemap fa-3x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者列表</a>
+                    </li>  
+                    <li>
+                        <a href="{:url('admin/article')}"><i class="fa fa-file fa-3x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文章管理</a>
+                    </li>
+                    <li>
+                        <a href="{:url('admin/category')}"><i class="fa fa-th-list fa-3x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分类管理</a>
+                    </li>
+                    <li>
+                        <a   href="{:url('admin/editor')}"><i class="fa fa-user fa-3x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;修改个人信息</a>
+                    </li>       
+                     
+                    <li>
+                        <a  href="{:url('index/index')}"><i class="fa fa-square-o fa-3x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回博客</a>
+                    </li>   
+                </ul>   
+            </div> 
+        </nav>
